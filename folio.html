@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HANZ | Graphic Designer & Visual Artist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fafafa;
+            color: #111;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            border-radius: 4px;
+        }
+        
+        /* HERO TEXT MASK EFFECT */
+        .hero-container {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #fff;
+        }
+        
+        .text-mask-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* The big PORTFOLIO text */
+        .big-text {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(8rem, 20vw, 18rem);
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            position: relative;
+            z-index: 1;
+            user-select: none;
+            line-height: 0.85;
+        }
+        
+        /* Solid text (behind image) */
+        .text-solid {
+            color: #111;
+            position: absolute;
+            z-index: 1;
+        }
+        
+        /* Outlined text (in front of image) */
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 3px #111;
+            position: relative;
+            z-index: 3;
+            mix-blend-mode: difference;
+        }
+        
+        /* Center Image */
+        .hero-image {
+            position: absolute;
+            z-index: 2;
+            height: 70vh;
+            max-height: 600px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 25px 50px rgba(0,0,0,0.15));
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Side text elements */
+        .side-text {
+            position: absolute;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            z-index: 4;
+        }
+        
+        .side-text.left {
+            left: 5%;
+            bottom: 20%;
+            transform: rotate(-5deg);
+        }
+        
+        .side-text.right {
+            right: 5%;
+            bottom: 25%;
+            transform: rotate(5deg);
+            text-align: right;
+        }
+        
+        .scribble {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            color: #666;
+            font-size: 1.2rem;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            mix-blend-mode: difference;
+        }
+        
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #fff;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+            font-size: 0.8rem;
+            z-index: 10;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Glass Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Portfolio Grid New Style */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 4/5;
+            cursor: pointer;
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            color: white;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        /* Pricing Cards */
+        .price-card {
+            background: #fff;
+            border: 2px solid #f0f0f0;
+            border-radius: 24px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .price-card:hover {
+            border-color: #667eea;
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.15);
+        }
+        
+        .price-card.featured {
+            border-color: #667eea;
+            background: linear-gradient(145deg, #fff 0%, #f8f6ff 100%);
+        }
+        
+        .price-card.featured::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        /* Marquee */
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 2rem 0;
+            background: #111;
+            color: #fff;
+            transform: rotate(-2deg) scale(1.05);
+            margin: 4rem 0;
+        }
+        
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            color: #fff;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .big-text {
+                font-size: 5rem;
+            }
+            
+            .hero-image {
+                height: 50vh;
+            }
+            
+            .side-text {
+                font-size: 1rem;
+            }
+            
+            .side-text.left {
+                left: 5%;
+                bottom: 15%;
+            }
+            
+            .side-text.right {
+                right: 5%;
+                bottom: 20%;
+            }
+            
+            .text-outline {
+                -webkit-text-stroke: 2px #111;
+            }
+        }
+        
+        /* Custom Cursor */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+        }
+        
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(102, 126, 234, 0.5);
+            transition: all 0.2s ease;
+        }
+        
+        /* Hover states for cursor */
+        body.hovering .cursor-outline {
+            width: 60px;
+            height: 60px;
+            background: rgba(102, 126, 234, 0.1);
+            border-color: #667eea;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">HANZ.</a>
+        <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#services">Services</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- HERO SECTION WITH TEXT MASK EFFECT -->
+    <div class="hero-container">
+        <div class="text-mask-container">
+            <!-- Left Side Text -->
+            <div class="side-text left">
+                <div class="scribble">Graphic</div>
+                <div class="scribble">Designer</div>
+                <div style="font-size: 2.5rem; margin-top: 0.5rem; color: #111;">HANZ</div>
+            </div>
+            
+            <!-- Solid Text (Behind Image) -->
+            <div class="big-text text-solid">PORTFOLIO</div>
+            
+            <!-- Center Image (No Background) -->
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80" 
+                 alt="HANZ Portrait" 
+                 class="hero-image"
+                 id="heroImage">
+            
+            <!-- Outlined Text (Front of Image) -->
+            <div class="big-text text-outline">PORTFOLIO</div>
+            
+            <!-- Right Side Text -->
+            <div class="side-text right">
+                <div class="scribble">Visual</div>
+                <div class="scribble">Artist</div>
+                <div style="font-size: 2.5rem; margin-top: 0.5rem; color: #111;">2024</div>
+            </div>
+        </div>
+        
+        <div class="scroll-hint">
+            <span>Scroll to explore</span>
+            <i class="fas fa-arrow-down"></i>
+        </div>
+    </div>
+
+    <!-- Marquee -->
+    <div class="marquee">
+        <div class="marquee-content">
+            LOGO DESIGN • BRAND IDENTITY • PRINT DESIGN • DIGITAL ART • SOCIAL MEDIA • PACKAGING • LOGO DESIGN • BRAND IDENTITY • PRINT DESIGN • DIGITAL ART • SOCIAL MEDIA • PACKAGING •
+        </div>
+    </div>
+
+    <!-- Selected Work Section -->
+    <section id="work">
+        <div class="mb-12 reveal">
+            <h2 class="text-6xl md:text-7xl font-bold mb-4">Selected<br><span class="gradient-text">Works</span></h2>
+            <p class="text-gray-600 text-lg max-w-xl">A curated collection of brand identities, print materials, and digital experiences crafted with precision and creativity.</p>
+        </div>
+        
+        <div class="portfolio-grid">
+            <div class="portfolio-item reveal">
+                <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?w=800&auto=format&fit=crop&q=80" alt="Brand Project">
+                <div class="portfolio-overlay">
+                    <span class="text-sm font-medium text-purple-400 mb-1">Brand Identity</span>
+                    <h3 class="text-2xl font-bold">Luxe Fashion House</h3>
+                    <p class="text-gray-300 text-sm mt-2">Complete visual identity system</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item reveal" style="transition-delay: 0.1s;">
+                <img src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&auto=format&fit=crop&q=80" alt="Print Design">
+                <div class="portfolio-overlay">
+                    <span class="text-sm font-medium text-pink-400 mb-1">Print Design</span>
+                    <h3 class="text-2xl font-bold">Corporate Stationery</h3>
+                    <p class="text-gray-300 text-sm mt-2">Business cards & letterhead suite</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item reveal" style="transition-delay: 0.2s;">
+                <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800&auto=format&fit=crop&q=80" alt="Digital Campaign">
+                <div class="portfolio-overlay">
+                    <span class="text-sm font-medium text-blue-400 mb-1">Digital Campaign</span>
+                    <h3 class="text-2xl font-bold">Social Media Series</h3>
+                    <p class="text-gray-300 text-sm mt-2">Instagram content strategy</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item reveal">
+                <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&auto=format&fit=crop&q=80" alt="Logo Design">
+                <div class="portfolio-overlay">
+                    <span class="text-sm font-medium text-purple-400 mb-1">Logo Design</span>
+                    <h3 class="text-2xl font-bold">Tech Startup</h3>
+                    <p class="text-gray-300 text-sm mt-2">Modern minimalist mark</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item reveal" style="transition-delay: 0.1s;">
+                <img src="https://images.unsplash.com/photo-1561070791-36c11767b26a?w=800&auto=format&fit=crop&q=80" alt="Event Poster">
+                <div class="portfolio-overlay">
+                    <span class="text-sm font-medium text-pink-400 mb-1">Event Poster</span>
+                    <h3 class="text-2xl font-bold">Music Festival</h3>
+                    <p class="text-gray-300 text-sm mt-2">Campaign poster series</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item reveal" style="transition-delay: 0.2s;">
+                <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?w=800&auto=format&fit=crop&q=80" alt="Packaging">
+                <div class="portfolio-overlay">
+                    <span class="text-sm font-medium text-amber-400 mb-1">Packaging</span>
+                    <h3 class="text-2xl font-bold">Skincare Line</h3>
+                    <p class="text-gray-300 text-sm mt-2">Product label design</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-12 reveal">
+            <button class="px-8 py-4 rounded-full border-2 border-black text-black font-semibold hover:bg-black hover:text-white transition-all duration-300">
+                View All Projects
+            </button>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="grid md:grid-cols-2 gap-16 items-start">
+            <div class="reveal sticky top-24">
+                <h2 class="text-6xl md:text-7xl font-bold mb-6">What I<br><span class="gradient-text">Do</span></h2>
+                <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                    From concept to completion, I provide comprehensive design solutions that elevate your brand presence across all touchpoints.
+                </p>
+                <div class="flex gap-4">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold gradient-text">50+</div>
+                        <div class="text-sm text-gray-500 mt-1">Projects</div>
+                    </div>
+                    <div class="w-px bg-gray-300"></div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold gradient-text">30+</div>
+                        <div class="text-sm text-gray-500 mt-1">Clients</div>
+                    </div>
+                    <div class="w-px bg-gray-300"></div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold gradient-text">5+</div>
+                        <div class="text-sm text-gray-500 mt-1">Years</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="glass-card reveal">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white text-xl shrink-0">
+                            <i class="fas fa-fingerprint"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2">Logo & Brand Identity</h3>
+                            <p class="text-gray-600 mb-4">Distinctive visual identities that capture your brand essence and leave lasting impressions.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Logo Design</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Brand Guidelines</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Color Palette</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card reveal" style="transition-delay: 0.1s;">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white text-xl shrink-0">
+                            <i class="fas fa-print"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2">Print Design</h3>
+                            <p class="text-gray-600 mb-4">High-quality print materials that effectively communicate your message and brand values.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Business Cards</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Flyers</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Posters</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Banners</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card reveal" style="transition-delay: 0.2s;">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center text-white text-xl shrink-0">
+                            <i class="fas fa-digital-tachograph"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2">Digital Artwork</h3>
+                            <p class="text-gray-600 mb-4">Engaging digital content optimized for social media and online platforms.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Social Posts</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Photo Editing</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Reels/TikTok</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card reveal" style="transition-delay: 0.3s;">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-xl shrink-0">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2">Product Packaging</h3>
+                            <p class="text-gray-600 mb-4">Eye-catching packaging design that stands out on shelves and enhances unboxing experiences.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Labels</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Boxes</span>
+                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Mockups</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing">
+        <div class="text-center mb-16 reveal">
+            <h2 class="text-6xl md:text-7xl font-bold mb-4">Investment</h2>
+            <p class="text-gray-600 text-lg">Transparent pricing for quality design solutions</p>
+        </div>
+        
+        <!-- Logo Pricing -->
+        <div class="mb-12 reveal">
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                <i class="fas fa-fingerprint text-purple-500"></i>
+                Logo & Brand Identity
+            </h3>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="price-card">
+                    <div class="text-sm text-gray-500 mb-2 uppercase tracking-wider">Basic</div>
+                    <h4 class="text-xl font-bold mb-2">Logo Design Only</h4>
+                    <div class="text-4xl font-bold mb-4">₱3K <span class="text-lg text-gray-400">- ₱5K+</span></div>
+                    <p class="text-gray-600 text-sm mb-6">Perfect for startups needing a simple, clean logo mark.</p>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> 3 Logo Concepts</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> 3 Revisions</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> PNG & JPG Files</li>
+                    </ul>
+                </div>
+                
+                <div class="price-card featured">
+                    <div class="text-sm text-gray-500 mb-2 uppercase tracking-wider">Standard</div>
+                    <h4 class="text-xl font-bold mb-2">Logo + Brand Guide</h4>
+                    <div class="text-4xl font-bold mb-4 gradient-text">₱15K <span class="text-lg text-gray-400">- ₱30K+</span></div>
+                    <p class="text-gray-600 text-sm mb-6">Complete logo with basic brand guidelines.</p>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> 5 Logo Concepts</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Unlimited Revisions</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Brand Guidelines PDF</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Color Palette</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Source Files</li>
+                    </ul>
+                </div>
+                
+                <div class="price-card">
+                    <div class="text-sm text-gray-500 mb-2 uppercase tracking-wider">Premium</div>
+                    <h4 class="text-xl font-bold mb-2">Full Brand System</h4>
+                    <div class="text-4xl font-bold mb-4">₱40K <span class="text-lg text-gray-400">- ₱50K+</span></div>
+                    <p class="text-gray-600 text-sm mb-6">Comprehensive brand system with full assets.</p>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Everything in Standard</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Stationery Design</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Social Media Kit</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Brand Strategy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Print & Digital Grid -->
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="reveal">
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <i class="fas fa-print text-pink-500"></i>
+                    Printables
+                </h3>
+                <div class="glass-card space-y-4">
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">Flyer (1-2 pages)</span>
+                        <span class="font-bold">₱1,000 - ₱1,500</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">Flyer (1-3 pages)</span>
+                        <span class="font-bold">₱2,000 - ₱3,000</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">Poster</span>
+                        <span class="font-bold">₱1,000 - ₱3,000</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">Business Card</span>
+                        <span class="font-bold">₱1,500 - ₱2,000</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">Letterhead</span>
+                        <span class="font-bold">₱1,000 - ₱1,500</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">Certificate</span>
+                        <span class="font-bold">₱1,500 - ₱2,000</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">Corporate Folder</span>
+                        <span class="font-bold">₱1,200 - ₱1,500</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">Banner</span>
+                        <span class="font-bold">₱1,500 - ₱3,000</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">Invitation Card</span>
+                        <span class="font-bold">₱2,000 - ₱2,500</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3">
+                        <span class="font-medium">Menu</span>
+                        <span class="font-bold">₱3,000 - ₱5,000</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="reveal" style="transition-delay: 0.1s;">
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <i class="fas fa-palette text-blue-500"></i>
+                    Digital Artwork
+                </h3>
+                <div class="glass-card space-y-4">
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">Photo Editing</span>
+                        <span class="font-bold">₱500 - ₱1,500</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">Photomanipulation</span>
+                        <span class="font-bold">₱1,000 - ₱3,000</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">Event/Movie Poster</span>
+                        <span class="font-bold">₱2,000 - ₱5,000</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">FB/IG Post</span>
+                        <span class="font-bold">₱500 - ₱1,000</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">Reels/TikTok</span>
+                        <span class="font-bold">₱1,500 - ₱3,000</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">Social Media Cover</span>
+                        <span class="font-bold">₱1,000 - ₱1,500</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                        <span class="font-medium">Product Label</span>
+                        <span class="font-bold">₱4,000 - ₱8,000</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3">
+                        <span class="font-medium">Product Packaging</span>
+                        <span class="font-bold">₱5,000 - ₱10,000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Subscription Packages -->
+        <div class="reveal">
+            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                <i class="fas fa-calendar-alt text-purple-500"></i>
+                Monthly Subscription Packages
+            </h3>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="price-card text-center">
+                    <div class="text-4xl mb-4">📱</div>
+                    <h4 class="text-lg font-bold mb-2">Starter Pack</h4>
+                    <div class="text-3xl font-bold mb-2">₱8K - ₱10K</div>
+                    <p class="text-gray-600 text-sm mb-4">10 Social Media Posts</p>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• Custom Graphics</li>
+                        <li>• Caption Suggestions</li>
+                        <li>• 2 Revisions</li>
+                    </ul>
+                </div>
+                
+                <div class="price-card featured text-center">
+                    <div class="text-4xl mb-4">📲</div>
+                    <h4 class="text-lg font-bold mb-2">Growth Pack</h4>
+                    <div class="text-3xl font-bold mb-2 gradient-text">₱15K - ₱20K</div>
+                    <p class="text-gray-600 text-sm mb-4">20 Social Media Posts</p>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• Everything in Starter</li>
+                        <li>• 2 Reels/TikTok</li>
+                        <li>• Story Templates</li>
+                        <li>• Unlimited Revisions</li>
+                    </ul>
+                </div>
+                
+                <div class="price-card text-center">
+                    <div class="text-4xl mb-4">📳</div>
+                    <h4 class="text-lg font-bold mb-2">Pro Pack</h4>
+                    <div class="text-3xl font-bold mb-2">₱25K - ₱30K</div>
+                    <p class="text-gray-600 text-sm mb-4">30 Social Media Posts</p>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li>• Everything in Growth</li>
+                        <li>• 5 Reels/TikTok</li>
+                        <li>• Content Strategy</li>
+                        <li>• Priority Support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="pb-24">
+        <div class="glass-card max-w-4xl mx-auto reveal">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-5xl font-bold mb-4">Let's<br><span class="gradient-text">Talk</span></h2>
+                    <p class="text-gray-600 mb-8">Have a project in mind? I'd love to hear about it. Let's create something amazing together.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-500">Email</div>
+                                <div class="font-semibold">hello@hanz.design</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-600">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-500">Instagram</div>
+                                <div class="font-semibold">@hanz.designs</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                <i class="fab fa-behance"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-500">Behance</div>
+                                <div class="font-semibold">/hanzdesign</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="space-y-4" onsubmit="event.preventDefault(); alert('Message sent! I will get back to you soon.');">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                        <input type="text" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:outline-none transition-colors" placeholder="Your name">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:outline-none transition-colors" placeholder="your@email.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Service</label>
+                        <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:outline-none transition-colors">
+                            <option>Select a service...</option>
+                            <option>Logo Design</option>
+                            <option>Brand Identity</option>
+                            <option>Print Design</option>
+                            <option>Digital/Social Media</option>
+                            <option>Monthly Package</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                        <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:outline-none transition-colors" placeholder="Tell me about your project..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-4 rounded-xl bg-black text-white font-bold hover:bg-gray-800 transition-colors">
+                        Send Message <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 py-8 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-2xl font-bold">HANZ.</div>
+            <div class="text-sm text-gray-500">© 2024 HANZ Design. All rights reserved.</div>
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 transition-all">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 transition-all">
+                    <i class="fab fa-behance"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 transition-all">
+                    <i class="fab fa-dribbble"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+        
+        // Hover effect
+        document.querySelectorAll('a, button, .portfolio-item, .glass-card, .price-card').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+        
+        // Scroll Reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 150;
+            
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+        
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // Parallax for hero image
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroImage = document.querySelector('.hero-image');
+            if (heroImage && scrolled < window.innerHeight) {
+                heroImage.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
