@@ -129,47 +129,44 @@
         }
         
         /* Center Image - NO BG */
-        .hero-image {
-            position: relative;
-            z-index: 2;
-            
-            /* CENTERING FIX */
-            display: block; 
-            margin: -1rem auto; /* Yung 'auto' sa dulo ang magpapagitna dito */
-            
-            /* SIZE INCREASE */
-            height: 60vh; /* Tinaasan from 40vh */
-            max-height: 500px; /* Tinaasan from 350px. Pwede mo pa lakihan if needed! */
-            width: auto;
-            max-width: 95%; /* Tinaasan from 80% para mas sakop ang screen */
-            
-            object-fit: contain;
-            filter: drop-shadow(0 25px 50px rgba(0,0,0,0.5));
-            animation: float 6s ease-in-out infinite;
-        }
+.hero-image {
+    position: relative;
+    z-index: 2;
+    display: block; 
+    margin: -1rem auto; 
+    
+    /* PANG-MOBILE NA LAKI (Medyo pinaliit para hindi sakop buong screen) */
+    height: 45vh; 
+    max-height: 400px; 
+    width: auto;
+    max-width: 95%; 
+    
+    object-fit: contain;
+    filter: drop-shadow(0 25px 50px rgba(0,0,0,0.5));
+    animation: float 6s ease-in-out infinite;
+}
 
-        
-        @media (min-width: 640px) {
-            .hero-image {
-                height: 45vh;
-                max-height: 400px;
-            }
-        }
-        
-        @media (min-width: 768px) {
-            .hero-image {
-                height: 50vh;
-                max-height: 450px;
-                margin: -2rem 0;
-            }
-        }
-        
-        @media (min-width: 1024px) {
-            .hero-image {
-                height: 55vh;
-                max-height: 500px;
-            }
-        }
+@media (min-width: 640px) { /* Para sa mga Tablet */
+    .hero-image {
+        height: 50vh;
+        max-height: 450px;
+    }
+}
+
+@media (min-width: 768px) { /* Para sa Laptops */
+    .hero-image {
+        height: 55vh;
+        max-height: 500px;
+        margin: -2rem auto; /* Para manatiling nasa gitna */
+    }
+}
+
+@media (min-width: 1024px) { /* Para sa malalaking Desktop Monitor */
+    .hero-image {
+        height: 65vh;
+        max-height: 600px;
+    }
+}
         
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
