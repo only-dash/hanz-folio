@@ -21,6 +21,10 @@
             --accent: #f093fb;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
             background: #fafafa;
@@ -48,18 +52,20 @@
         /* HERO TEXT MASK EFFECT */
         .hero-container {
             position: relative;
-            height: 100vh;
-            min-height: 700px;
+            min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             background: #fff;
+            padding: 80px 1rem 2rem;
         }
         
         .text-mask-container {
             position: relative;
             width: 100%;
+            max-width: 1400px;
             height: 100%;
             display: flex;
             align-items: center;
@@ -69,13 +75,15 @@
         /* The big PORTFOLIO text */
         .big-text {
             font-family: 'Syne', sans-serif;
-            font-size: clamp(8rem, 20vw, 18rem);
+            font-size: clamp(4rem, 15vw, 14rem);
             font-weight: 800;
             letter-spacing: -0.05em;
             position: relative;
             z-index: 1;
             user-select: none;
             line-height: 0.85;
+            width: 100%;
+            text-align: center;
         }
         
         /* Solid text (behind image) */
@@ -88,22 +96,42 @@
         /* Outlined text (in front of image) */
         .text-outline {
             color: transparent;
-            -webkit-text-stroke: 3px #111;
+            -webkit-text-stroke: 2px #111;
             position: relative;
             z-index: 3;
             mix-blend-mode: difference;
+        }
+        
+        @media (min-width: 768px) {
+            .text-outline {
+                -webkit-text-stroke: 3px #111;
+            }
         }
         
         /* Center Image */
         .hero-image {
             position: absolute;
             z-index: 2;
-            height: 70vh;
-            max-height: 600px;
+            height: 50vh;
+            max-height: 500px;
             width: auto;
+            max-width: 90%;
             object-fit: contain;
             filter: drop-shadow(0 25px 50px rgba(0,0,0,0.15));
             animation: float 6s ease-in-out infinite;
+        }
+        
+        @media (min-width: 768px) {
+            .hero-image {
+                height: 60vh;
+                max-height: 600px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .hero-image {
+                height: 70vh;
+            }
         }
         
         @keyframes float {
@@ -116,29 +144,55 @@
             position: absolute;
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 600;
-            font-size: 1.5rem;
+            font-size: 0.9rem;
             z-index: 4;
         }
         
+        @media (min-width: 768px) {
+            .side-text {
+                font-size: 1.2rem;
+            }
+        }
+        
         .side-text.left {
-            left: 5%;
-            bottom: 20%;
+            left: 3%;
+            bottom: 15%;
             transform: rotate(-5deg);
         }
         
+        @media (min-width: 768px) {
+            .side-text.left {
+                left: 5%;
+                bottom: 20%;
+            }
+        }
+        
         .side-text.right {
-            right: 5%;
-            bottom: 25%;
+            right: 3%;
+            bottom: 20%;
             transform: rotate(5deg);
             text-align: right;
+        }
+        
+        @media (min-width: 768px) {
+            .side-text.right {
+                right: 5%;
+                bottom: 25%;
+            }
         }
         
         .scribble {
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 500;
             color: #666;
-            font-size: 1.2rem;
+            font-size: 0.8rem;
             letter-spacing: 0.05em;
+        }
+        
+        @media (min-width: 768px) {
+            .scribble {
+                font-size: 1rem;
+            }
         }
         
         /* Navigation */
@@ -148,24 +202,42 @@
             left: 0;
             right: 0;
             z-index: 100;
-            padding: 1.5rem 3rem;
+            padding: 1rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             mix-blend-mode: difference;
         }
         
+        @media (min-width: 768px) {
+            nav {
+                padding: 1.5rem 3rem;
+            }
+        }
+        
         .logo {
             font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 800;
             color: #fff;
             text-decoration: none;
         }
         
+        @media (min-width: 768px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+        
         .nav-links {
-            display: flex;
-            gap: 2rem;
+            display: none;
+        }
+        
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+                gap: 2rem;
+            }
         }
         
         .nav-links a {
@@ -192,10 +264,65 @@
             width: 100%;
         }
         
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: block;
+            color: #fff;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 101;
+        }
+        
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+        
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .mobile-menu a {
+            color: #fff;
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .mobile-menu .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: #fff;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
         /* Scroll indicator */
         .scroll-hint {
             position: absolute;
-            bottom: 2rem;
+            bottom: 1.5rem;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -203,9 +330,16 @@
             align-items: center;
             gap: 0.5rem;
             color: #666;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             z-index: 10;
             animation: bounce 2s infinite;
+        }
+        
+        @media (min-width: 768px) {
+            .scroll-hint {
+                bottom: 2rem;
+                font-size: 0.8rem;
+            }
         }
         
         @keyframes bounce {
@@ -215,9 +349,15 @@
         
         /* Sections */
         section {
-            padding: 6rem 2rem;
+            padding: 4rem 1rem;
             max-width: 1400px;
             margin: 0 auto;
+        }
+        
+        @media (min-width: 768px) {
+            section {
+                padding: 6rem 2rem;
+            }
         }
         
         /* Glass Cards */
@@ -226,8 +366,14 @@
             backdrop-filter: blur(20px);
             border: 1px solid rgba(0, 0, 0, 0.08);
             border-radius: 24px;
-            padding: 2rem;
+            padding: 1.5rem;
             transition: all 0.3s ease;
+        }
+        
+        @media (min-width: 768px) {
+            .glass-card {
+                padding: 2rem;
+            }
         }
         
         .glass-card:hover {
@@ -247,8 +393,21 @@
         /* Portfolio Grid New Style */
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 640px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
         }
         
         .portfolio-item {
@@ -279,8 +438,14 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 2rem;
+            padding: 1.5rem;
             color: white;
+        }
+        
+        @media (min-width: 768px) {
+            .portfolio-overlay {
+                padding: 2rem;
+            }
         }
         
         .portfolio-item:hover .portfolio-overlay {
@@ -292,9 +457,15 @@
             background: #fff;
             border: 2px solid #f0f0f0;
             border-radius: 24px;
-            padding: 2.5rem;
+            padding: 1.5rem;
             transition: all 0.3s ease;
             position: relative;
+        }
+        
+        @media (min-width: 768px) {
+            .price-card {
+                padding: 2.5rem;
+            }
         }
         
         .price-card:hover {
@@ -327,19 +498,32 @@
         .marquee {
             overflow: hidden;
             white-space: nowrap;
-            padding: 2rem 0;
+            padding: 1.5rem 0;
             background: #111;
             color: #fff;
             transform: rotate(-2deg) scale(1.05);
-            margin: 4rem 0;
+            margin: 3rem 0;
+        }
+        
+        @media (min-width: 768px) {
+            .marquee {
+                padding: 2rem 0;
+                margin: 4rem 0;
+            }
         }
         
         .marquee-content {
             display: inline-block;
             animation: marquee 20s linear infinite;
             font-family: 'Syne', sans-serif;
-            font-size: 2rem;
+            font-size: 1.25rem;
             font-weight: 700;
+        }
+        
+        @media (min-width: 768px) {
+            .marquee-content {
+                font-size: 2rem;
+            }
         }
         
         @keyframes marquee {
@@ -359,53 +543,7 @@
             transform: translateY(0);
         }
         
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            color: #fff;
-            font-size: 1.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .big-text {
-                font-size: 5rem;
-            }
-            
-            .hero-image {
-                height: 50vh;
-            }
-            
-            .side-text {
-                font-size: 1rem;
-            }
-            
-            .side-text.left {
-                left: 5%;
-                bottom: 15%;
-            }
-            
-            .side-text.right {
-                right: 5%;
-                bottom: 20%;
-            }
-            
-            .text-outline {
-                -webkit-text-stroke: 2px #111;
-            }
-        }
-        
-        /* Custom Cursor */
+        /* Custom Cursor - Desktop Only */
         .cursor-dot,
         .cursor-outline {
             position: fixed;
@@ -437,11 +575,102 @@
             background: rgba(102, 126, 234, 0.1);
             border-color: #667eea;
         }
+        
+        /* Form Styles */
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            background: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+            outline: none;
+        }
+        
+        @media (min-width: 768px) {
+            .form-input {
+                padding: 1rem 1.25rem;
+            }
+        }
+        
+        .form-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Section Headers Responsive */
+        .section-title {
+            font-size: 2.5rem;
+            line-height: 1.1;
+        }
+        
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 4rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .section-title {
+                font-size: 5rem;
+            }
+        }
+        
+        /* Grid layouts responsive */
+        .services-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .services-grid {
+                gap: 1.5rem;
+            }
+        }
+        
+        .pricing-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        @media (min-width: 640px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .pricing-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        
+        /* Print/Digital pricing grid */
+        .pricing-list-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 1024px) {
+            .pricing-list-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Custom Cursor -->
+    <!-- Custom Cursor - Desktop Only -->
     <div class="cursor-dot hidden md:block"></div>
     <div class="cursor-outline hidden md:block"></div>
 
@@ -454,10 +683,21 @@
             <a href="#pricing">Pricing</a>
             <a href="#contact">Contact</a>
         </div>
-        <button class="mobile-menu-btn">
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
             <i class="fas fa-bars"></i>
         </button>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-btn" id="closeMobileMenu">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="#work" class="mobile-link">Work</a>
+        <a href="#services" class="mobile-link">Services</a>
+        <a href="#pricing" class="mobile-link">Pricing</a>
+        <a href="#contact" class="mobile-link">Contact</a>
+    </div>
 
     <!-- HERO SECTION WITH TEXT MASK EFFECT -->
     <div class="hero-container">
@@ -466,7 +706,7 @@
             <div class="side-text left">
                 <div class="scribble">Graphic</div>
                 <div class="scribble">Designer</div>
-                <div style="font-size: 2.5rem; margin-top: 0.5rem; color: #111;">HANZ</div>
+                <div style="font-size: clamp(1.5rem, 4vw, 2.5rem); margin-top: 0.5rem; color: #111; font-weight: 700;">HANZ</div>
             </div>
             
             <!-- Solid Text (Behind Image) -->
@@ -485,7 +725,7 @@
             <div class="side-text right">
                 <div class="scribble">Visual</div>
                 <div class="scribble">Artist</div>
-                <div style="font-size: 2.5rem; margin-top: 0.5rem; color: #111;">2024</div>
+                <div style="font-size: clamp(1.5rem, 4vw, 2.5rem); margin-top: 0.5rem; color: #111; font-weight: 700;">2024</div>
             </div>
         </div>
         
@@ -504,9 +744,9 @@
 
     <!-- Selected Work Section -->
     <section id="work">
-        <div class="mb-12 reveal">
-            <h2 class="text-6xl md:text-7xl font-bold mb-4">Selected<br><span class="gradient-text">Works</span></h2>
-            <p class="text-gray-600 text-lg max-w-xl">A curated collection of brand identities, print materials, and digital experiences crafted with precision and creativity.</p>
+        <div class="mb-8 md:mb-12 reveal">
+            <h2 class="section-title font-bold mb-4">Selected<br><span class="gradient-text">Works</span></h2>
+            <p class="text-gray-600 text-base md:text-lg max-w-xl">A curated collection of brand identities, print materials, and digital experiences crafted with precision and creativity.</p>
         </div>
         
         <div class="portfolio-grid">
@@ -514,7 +754,7 @@
                 <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?w=800&auto=format&fit=crop&q=80" alt="Brand Project">
                 <div class="portfolio-overlay">
                     <span class="text-sm font-medium text-purple-400 mb-1">Brand Identity</span>
-                    <h3 class="text-2xl font-bold">Luxe Fashion House</h3>
+                    <h3 class="text-xl md:text-2xl font-bold">Luxe Fashion House</h3>
                     <p class="text-gray-300 text-sm mt-2">Complete visual identity system</p>
                 </div>
             </div>
@@ -523,7 +763,7 @@
                 <img src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&auto=format&fit=crop&q=80" alt="Print Design">
                 <div class="portfolio-overlay">
                     <span class="text-sm font-medium text-pink-400 mb-1">Print Design</span>
-                    <h3 class="text-2xl font-bold">Corporate Stationery</h3>
+                    <h3 class="text-xl md:text-2xl font-bold">Corporate Stationery</h3>
                     <p class="text-gray-300 text-sm mt-2">Business cards & letterhead suite</p>
                 </div>
             </div>
@@ -532,7 +772,7 @@
                 <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800&auto=format&fit=crop&q=80" alt="Digital Campaign">
                 <div class="portfolio-overlay">
                     <span class="text-sm font-medium text-blue-400 mb-1">Digital Campaign</span>
-                    <h3 class="text-2xl font-bold">Social Media Series</h3>
+                    <h3 class="text-xl md:text-2xl font-bold">Social Media Series</h3>
                     <p class="text-gray-300 text-sm mt-2">Instagram content strategy</p>
                 </div>
             </div>
@@ -541,7 +781,7 @@
                 <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&auto=format&fit=crop&q=80" alt="Logo Design">
                 <div class="portfolio-overlay">
                     <span class="text-sm font-medium text-purple-400 mb-1">Logo Design</span>
-                    <h3 class="text-2xl font-bold">Tech Startup</h3>
+                    <h3 class="text-xl md:text-2xl font-bold">Tech Startup</h3>
                     <p class="text-gray-300 text-sm mt-2">Modern minimalist mark</p>
                 </div>
             </div>
@@ -550,7 +790,7 @@
                 <img src="https://images.unsplash.com/photo-1561070791-36c11767b26a?w=800&auto=format&fit=crop&q=80" alt="Event Poster">
                 <div class="portfolio-overlay">
                     <span class="text-sm font-medium text-pink-400 mb-1">Event Poster</span>
-                    <h3 class="text-2xl font-bold">Music Festival</h3>
+                    <h3 class="text-xl md:text-2xl font-bold">Music Festival</h3>
                     <p class="text-gray-300 text-sm mt-2">Campaign poster series</p>
                 </div>
             </div>
@@ -559,14 +799,14 @@
                 <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?w=800&auto=format&fit=crop&q=80" alt="Packaging">
                 <div class="portfolio-overlay">
                     <span class="text-sm font-medium text-amber-400 mb-1">Packaging</span>
-                    <h3 class="text-2xl font-bold">Skincare Line</h3>
+                    <h3 class="text-xl md:text-2xl font-bold">Skincare Line</h3>
                     <p class="text-gray-300 text-sm mt-2">Product label design</p>
                 </div>
             </div>
         </div>
         
-        <div class="text-center mt-12 reveal">
-            <button class="px-8 py-4 rounded-full border-2 border-black text-black font-semibold hover:bg-black hover:text-white transition-all duration-300">
+        <div class="text-center mt-8 md:mt-12 reveal">
+            <button class="px-6 py-3 md:px-8 md:py-4 rounded-full border-2 border-black text-black font-semibold hover:bg-black hover:text-white transition-all duration-300 text-sm md:text-base">
                 View All Projects
             </button>
         </div>
@@ -574,95 +814,94 @@
 
     <!-- Services Section -->
     <section id="services">
-        <div class="grid md:grid-cols-2 gap-16 items-start">
-            <div class="reveal sticky top-24">
-                <h2 class="text-6xl md:text-7xl font-bold mb-6">What I<br><span class="gradient-text">Do</span></h2>
-                <p class="text-gray-600 text-lg leading-relaxed mb-8">
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+            <div class="reveal lg:sticky lg:top-24">
+                <h2 class="section-title font-bold mb-4 md:mb-6">What I<br><span class="gradient-text">Do</span></h2>
+                <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-6 md:mb-8">
                     From concept to completion, I provide comprehensive design solutions that elevate your brand presence across all touchpoints.
                 </p>
-                <div class="flex gap-4">
+                <div class="flex gap-4 md:gap-6">
                     <div class="text-center">
-                        <div class="text-4xl font-bold gradient-text">50+</div>
-                        <div class="text-sm text-gray-500 mt-1">Projects</div>
+                        <div class="text-2xl md:text-4xl font-bold gradient-text">50+</div>
+                        <div class="text-xs md:text-sm text-gray-500 mt-1">Projects</div>
                     </div>
                     <div class="w-px bg-gray-300"></div>
                     <div class="text-center">
-                        <div class="text-4xl font-bold gradient-text">30+</div>
-                        <div class="text-sm text-gray-500 mt-1">Clients</div>
+                        <div class="text-2xl md:text-4xl font-bold gradient-text">30+</div>
+                        <div class="text-xs md:text-sm text-gray-500 mt-1">Clients</div>
                     </div>
                     <div class="w-px bg-gray-300"></div>
                     <div class="text-center">
-                        <div class="text-4xl font-bold gradient-text">5+</div>
-                        <div class="text-sm text-gray-500 mt-1">Years</div>
+                        <div class="text-2xl md:text-4xl font-bold gradient-text">5+</div>
+                        <div class="text-xs md:text-sm text-gray-500 mt-1">Years</div>
                     </div>
                 </div>
             </div>
             
-            <div class="space-y-6">
+            <div class="services-grid">
                 <div class="glass-card reveal">
-                    <div class="flex items-start gap-4">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white text-xl shrink-0">
+                    <div class="flex items-start gap-3 md:gap-4">
+                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white text-lg md:text-xl shrink-0">
                             <i class="fas fa-fingerprint"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold mb-2">Logo & Brand Identity</h3>
-                            <p class="text-gray-600 mb-4">Distinctive visual identities that capture your brand essence and leave lasting impressions.</p>
+                            <h3 class="text-lg md:text-2xl font-bold mb-1 md:mb-2">Logo & Brand Identity</h3>
+                            <p class="text-gray-600 text-sm md:text-base mb-3 md:mb-4">Distinctive visual identities that capture your brand essence and leave lasting impressions.</p>
                             <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Logo Design</span>
-                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Brand Guidelines</span>
-                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Color Palette</span>
+                                <span class="px-2 py-1 md:px-3 bg-gray-100 rounded-full text-xs font-medium">Logo Design</span>
+                                <span class="px-2 py-1 md:px-3 bg-gray-100 rounded-full text-xs font-medium">Brand Guidelines</span>
+                                <span class="px-2 py-1 md:px-3 bg-gray-100 rounded-full text-xs font-medium">Color Palette</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="glass-card reveal" style="transition-delay: 0.1s;">
-                    <div class="flex items-start gap-4">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white text-xl shrink-0">
+                    <div class="flex items-start gap-3 md:gap-4">
+                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white text-lg md:text-xl shrink-0">
                             <i class="fas fa-print"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold mb-2">Print Design</h3>
-                            <p class="text-gray-600 mb-4">High-quality print materials that effectively communicate your message and brand values.</p>
+                            <h3 class="text-lg md:text-2xl font-bold mb-1 md:mb-2">Print Design</h3>
+                            <p class="text-gray-600 text-sm md:text-base mb-3 md:mb-4">High-quality print materials that effectively communicate your message and brand values.</p>
                             <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Business Cards</span>
-                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Flyers</span>
-                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Posters</span>
-                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Banners</span>
+                                <span class="px-2 py-1 md:px-3 bg-gray-100 rounded-full text-xs font-medium">Business Cards</span>
+                                <span class="px-2 py-1 md:px-3 bg-gray-100 rounded-full text-xs font-medium">Flyers</span>
+                                <span class="px-2 py-1 md:px-3 bg-gray-100 rounded-full text-xs font-medium">Posters</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="glass-card reveal" style="transition-delay: 0.2s;">
-                    <div class="flex items-start gap-4">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center text-white text-xl shrink-0">
+                    <div class="flex items-start gap-3 md:gap-4">
+                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center text-white text-lg md:text-xl shrink-0">
                             <i class="fas fa-digital-tachograph"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold mb-2">Digital Artwork</h3>
-                            <p class="text-gray-600 mb-4">Engaging digital content optimized for social media and online platforms.</p>
+                            <h3 class="text-lg md:text-2xl font-bold mb-1 md:mb-2">Digital Artwork</h3>
+                            <p class="text-gray-600 text-sm md:text-base mb-3 md:mb-4">Engaging digital content optimized for social media and online platforms.</p>
                             <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Social Posts</span>
-                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Photo Editing</span>
-                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Reels/TikTok</span>
+                                <span class="px-2 py-1 md:px-3 bg-gray-100 rounded-full text-xs font-medium">Social Posts</span>
+                                <span class="px-2 py-1 md:px-3 bg-gray-100 rounded-full text-xs font-medium">Photo Editing</span>
+                                <span class="px-2 py-1 md:px-3 bg-gray-100 rounded-full text-xs font-medium">Reels/TikTok</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="glass-card reveal" style="transition-delay: 0.3s;">
-                    <div class="flex items-start gap-4">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-xl shrink-0">
+                    <div class="flex items-start gap-3 md:gap-4">
+                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-lg md:text-xl shrink-0">
                             <i class="fas fa-box-open"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold mb-2">Product Packaging</h3>
-                            <p class="text-gray-600 mb-4">Eye-catching packaging design that stands out on shelves and enhances unboxing experiences.</p>
+                            <h3 class="text-lg md:text-2xl font-bold mb-1 md:mb-2">Product Packaging</h3>
+                            <p class="text-gray-600 text-sm md:text-base mb-3 md:mb-4">Eye-catching packaging design that stands out on shelves and enhances unboxing experiences.</p>
                             <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Labels</span>
-                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Boxes</span>
-                                <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-medium">Mockups</span>
+                                <span class="px-2 py-1 md:px-3 bg-gray-100 rounded-full text-xs font-medium">Labels</span>
+                                <span class="px-2 py-1 md:px-3 bg-gray-100 rounded-full text-xs font-medium">Boxes</span>
+                                <span class="px-2 py-1 md:px-3 bg-gray-100 rounded-full text-xs font-medium">Mockups</span>
                             </div>
                         </div>
                     </div>
@@ -673,24 +912,24 @@
 
     <!-- Pricing Section -->
     <section id="pricing">
-        <div class="text-center mb-16 reveal">
-            <h2 class="text-6xl md:text-7xl font-bold mb-4">Investment</h2>
-            <p class="text-gray-600 text-lg">Transparent pricing for quality design solutions</p>
+        <div class="text-center mb-8 md:mb-16 reveal">
+            <h2 class="section-title font-bold mb-3 md:mb-4">Investment</h2>
+            <p class="text-gray-600 text-base md:text-lg">Transparent pricing for quality design solutions</p>
         </div>
         
         <!-- Logo Pricing -->
-        <div class="mb-12 reveal">
-            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+        <div class="mb-8 md:mb-12 reveal">
+            <h3 class="text-xl md:text-2xl font-bold mb-4 md:mb-6 flex items-center gap-2 md:gap-3">
                 <i class="fas fa-fingerprint text-purple-500"></i>
                 Logo & Brand Identity
             </h3>
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="pricing-grid">
                 <div class="price-card">
-                    <div class="text-sm text-gray-500 mb-2 uppercase tracking-wider">Basic</div>
-                    <h4 class="text-xl font-bold mb-2">Logo Design Only</h4>
-                    <div class="text-4xl font-bold mb-4">₱3K <span class="text-lg text-gray-400">- ₱5K+</span></div>
-                    <p class="text-gray-600 text-sm mb-6">Perfect for startups needing a simple, clean logo mark.</p>
-                    <ul class="space-y-3 text-sm">
+                    <div class="text-xs md:text-sm text-gray-500 mb-2 uppercase tracking-wider">Basic</div>
+                    <h4 class="text-lg md:text-xl font-bold mb-2">Logo Design Only</h4>
+                    <div class="text-2xl md:text-4xl font-bold mb-3 md:mb-4">₱3K <span class="text-sm md:text-lg text-gray-400">- ₱5K+</span></div>
+                    <p class="text-gray-600 text-sm mb-4 md:mb-6">Perfect for startups needing a simple, clean logo mark.</p>
+                    <ul class="space-y-2 md:space-y-3 text-sm">
                         <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> 3 Logo Concepts</li>
                         <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> 3 Revisions</li>
                         <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> PNG & JPG Files</li>
@@ -698,11 +937,11 @@
                 </div>
                 
                 <div class="price-card featured">
-                    <div class="text-sm text-gray-500 mb-2 uppercase tracking-wider">Standard</div>
-                    <h4 class="text-xl font-bold mb-2">Logo + Brand Guide</h4>
-                    <div class="text-4xl font-bold mb-4 gradient-text">₱15K <span class="text-lg text-gray-400">- ₱30K+</span></div>
-                    <p class="text-gray-600 text-sm mb-6">Complete logo with basic brand guidelines.</p>
-                    <ul class="space-y-3 text-sm">
+                    <div class="text-xs md:text-sm text-gray-500 mb-2 uppercase tracking-wider">Standard</div>
+                    <h4 class="text-lg md:text-xl font-bold mb-2">Logo + Brand Guide</h4>
+                    <div class="text-2xl md:text-4xl font-bold mb-3 md:mb-4 gradient-text">₱15K <span class="text-sm md:text-lg text-gray-400">- ₱30K+</span></div>
+                    <p class="text-gray-600 text-sm mb-4 md:mb-6">Complete logo with basic brand guidelines.</p>
+                    <ul class="space-y-2 md:space-y-3 text-sm">
                         <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> 5 Logo Concepts</li>
                         <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Unlimited Revisions</li>
                         <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Brand Guidelines PDF</li>
@@ -712,11 +951,11 @@
                 </div>
                 
                 <div class="price-card">
-                    <div class="text-sm text-gray-500 mb-2 uppercase tracking-wider">Premium</div>
-                    <h4 class="text-xl font-bold mb-2">Full Brand System</h4>
-                    <div class="text-4xl font-bold mb-4">₱40K <span class="text-lg text-gray-400">- ₱50K+</span></div>
-                    <p class="text-gray-600 text-sm mb-6">Comprehensive brand system with full assets.</p>
-                    <ul class="space-y-3 text-sm">
+                    <div class="text-xs md:text-sm text-gray-500 mb-2 uppercase tracking-wider">Premium</div>
+                    <h4 class="text-lg md:text-xl font-bold mb-2">Full Brand System</h4>
+                    <div class="text-2xl md:text-4xl font-bold mb-3 md:mb-4">₱40K <span class="text-sm md:text-lg text-gray-400">- ₱50K+</span></div>
+                    <p class="text-gray-600 text-sm mb-4 md:mb-6">Comprehensive brand system with full assets.</p>
+                    <ul class="space-y-2 md:space-y-3 text-sm">
                         <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Everything in Standard</li>
                         <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Stationery Design</li>
                         <li class="flex items-center gap-2"><i class="fas fa-check text-purple-500"></i> Social Media Kit</li>
@@ -727,93 +966,93 @@
         </div>
         
         <!-- Print & Digital Grid -->
-        <div class="grid md:grid-cols-2 gap-8 mb-12">
+        <div class="pricing-list-grid mb-8 md:mb-12">
             <div class="reveal">
-                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                <h3 class="text-xl md:text-2xl font-bold mb-4 md:mb-6 flex items-center gap-2 md:gap-3">
                     <i class="fas fa-print text-pink-500"></i>
                     Printables
                 </h3>
-                <div class="glass-card space-y-4">
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">Flyer (1-2 pages)</span>
-                        <span class="font-bold">₱1,000 - ₱1,500</span>
+                <div class="glass-card space-y-3 md:space-y-4">
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">Flyer (1-2 pages)</span>
+                        <span class="font-bold text-sm md:text-base">₱1,000 - ₱1,500</span>
                     </div>
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">Flyer (1-3 pages)</span>
-                        <span class="font-bold">₱2,000 - ₱3,000</span>
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">Flyer (1-3 pages)</span>
+                        <span class="font-bold text-sm md:text-base">₱2,000 - ₱3,000</span>
                     </div>
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">Poster</span>
-                        <span class="font-bold">₱1,000 - ₱3,000</span>
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">Poster</span>
+                        <span class="font-bold text-sm md:text-base">₱1,000 - ₱3,000</span>
                     </div>
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">Business Card</span>
-                        <span class="font-bold">₱1,500 - ₱2,000</span>
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">Business Card</span>
+                        <span class="font-bold text-sm md:text-base">₱1,500 - ₱2,000</span>
                     </div>
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">Letterhead</span>
-                        <span class="font-bold">₱1,000 - ₱1,500</span>
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">Letterhead</span>
+                        <span class="font-bold text-sm md:text-base">₱1,000 - ₱1,500</span>
                     </div>
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">Certificate</span>
-                        <span class="font-bold">₱1,500 - ₱2,000</span>
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">Certificate</span>
+                        <span class="font-bold text-sm md:text-base">₱1,500 - ₱2,000</span>
                     </div>
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">Corporate Folder</span>
-                        <span class="font-bold">₱1,200 - ₱1,500</span>
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">Corporate Folder</span>
+                        <span class="font-bold text-sm md:text-base">₱1,200 - ₱1,500</span>
                     </div>
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">Banner</span>
-                        <span class="font-bold">₱1,500 - ₱3,000</span>
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">Banner</span>
+                        <span class="font-bold text-sm md:text-base">₱1,500 - ₱3,000</span>
                     </div>
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">Invitation Card</span>
-                        <span class="font-bold">₱2,000 - ₱2,500</span>
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">Invitation Card</span>
+                        <span class="font-bold text-sm md:text-base">₱2,000 - ₱2,500</span>
                     </div>
-                    <div class="flex justify-between items-center py-3">
-                        <span class="font-medium">Menu</span>
-                        <span class="font-bold">₱3,000 - ₱5,000</span>
+                    <div class="flex justify-between items-center py-2 md:py-3">
+                        <span class="font-medium text-sm md:text-base">Menu</span>
+                        <span class="font-bold text-sm md:text-base">₱3,000 - ₱5,000</span>
                     </div>
                 </div>
             </div>
             
             <div class="reveal" style="transition-delay: 0.1s;">
-                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                <h3 class="text-xl md:text-2xl font-bold mb-4 md:mb-6 flex items-center gap-2 md:gap-3">
                     <i class="fas fa-palette text-blue-500"></i>
                     Digital Artwork
                 </h3>
-                <div class="glass-card space-y-4">
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">Photo Editing</span>
-                        <span class="font-bold">₱500 - ₱1,500</span>
+                <div class="glass-card space-y-3 md:space-y-4">
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">Photo Editing</span>
+                        <span class="font-bold text-sm md:text-base">₱500 - ₱1,500</span>
                     </div>
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">Photomanipulation</span>
-                        <span class="font-bold">₱1,000 - ₱3,000</span>
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">Photomanipulation</span>
+                        <span class="font-bold text-sm md:text-base">₱1,000 - ₱3,000</span>
                     </div>
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">Event/Movie Poster</span>
-                        <span class="font-bold">₱2,000 - ₱5,000</span>
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">Event/Movie Poster</span>
+                        <span class="font-bold text-sm md:text-base">₱2,000 - ₱5,000</span>
                     </div>
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">FB/IG Post</span>
-                        <span class="font-bold">₱500 - ₱1,000</span>
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">FB/IG Post</span>
+                        <span class="font-bold text-sm md:text-base">₱500 - ₱1,000</span>
                     </div>
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">Reels/TikTok</span>
-                        <span class="font-bold">₱1,500 - ₱3,000</span>
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">Reels/TikTok</span>
+                        <span class="font-bold text-sm md:text-base">₱1,500 - ₱3,000</span>
                     </div>
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">Social Media Cover</span>
-                        <span class="font-bold">₱1,000 - ₱1,500</span>
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">Social Media Cover</span>
+                        <span class="font-bold text-sm md:text-base">₱1,000 - ₱1,500</span>
                     </div>
-                    <div class="flex justify-between items-center py-3 border-b border-gray-100">
-                        <span class="font-medium">Product Label</span>
-                        <span class="font-bold">₱4,000 - ₱8,000</span>
+                    <div class="flex justify-between items-center py-2 md:py-3 border-b border-gray-100">
+                        <span class="font-medium text-sm md:text-base">Product Label</span>
+                        <span class="font-bold text-sm md:text-base">₱4,000 - ₱8,000</span>
                     </div>
-                    <div class="flex justify-between items-center py-3">
-                        <span class="font-medium">Product Packaging</span>
-                        <span class="font-bold">₱5,000 - ₱10,000</span>
+                    <div class="flex justify-between items-center py-2 md:py-3">
+                        <span class="font-medium text-sm md:text-base">Product Packaging</span>
+                        <span class="font-bold text-sm md:text-base">₱5,000 - ₱10,000</span>
                     </div>
                 </div>
             </div>
@@ -821,17 +1060,17 @@
         
         <!-- Subscription Packages -->
         <div class="reveal">
-            <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+            <h3 class="text-xl md:text-2xl font-bold mb-4 md:mb-6 flex items-center gap-2 md:gap-3">
                 <i class="fas fa-calendar-alt text-purple-500"></i>
                 Monthly Subscription Packages
             </h3>
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="pricing-grid">
                 <div class="price-card text-center">
-                    <div class="text-4xl mb-4">📱</div>
-                    <h4 class="text-lg font-bold mb-2">Starter Pack</h4>
-                    <div class="text-3xl font-bold mb-2">₱8K - ₱10K</div>
-                    <p class="text-gray-600 text-sm mb-4">10 Social Media Posts</p>
-                    <ul class="text-sm text-gray-600 space-y-2">
+                    <div class="text-3xl md:text-4xl mb-3 md:mb-4">📱</div>
+                    <h4 class="text-base md:text-lg font-bold mb-1 md:mb-2">Starter Pack</h4>
+                    <div class="text-2xl md:text-3xl font-bold mb-1 md:mb-2">₱8K - ₱10K</div>
+                    <p class="text-gray-600 text-sm mb-3 md:mb-4">10 Social Media Posts</p>
+                    <ul class="text-xs md:text-sm text-gray-600 space-y-1 md:space-y-2 text-left px-4">
                         <li>• Custom Graphics</li>
                         <li>• Caption Suggestions</li>
                         <li>• 2 Revisions</li>
@@ -839,11 +1078,11 @@
                 </div>
                 
                 <div class="price-card featured text-center">
-                    <div class="text-4xl mb-4">📲</div>
-                    <h4 class="text-lg font-bold mb-2">Growth Pack</h4>
-                    <div class="text-3xl font-bold mb-2 gradient-text">₱15K - ₱20K</div>
-                    <p class="text-gray-600 text-sm mb-4">20 Social Media Posts</p>
-                    <ul class="text-sm text-gray-600 space-y-2">
+                    <div class="text-3xl md:text-4xl mb-3 md:mb-4">📲</div>
+                    <h4 class="text-base md:text-lg font-bold mb-1 md:mb-2">Growth Pack</h4>
+                    <div class="text-2xl md:text-3xl font-bold mb-1 md:mb-2 gradient-text">₱15K - ₱20K</div>
+                    <p class="text-gray-600 text-sm mb-3 md:mb-4">20 Social Media Posts</p>
+                    <ul class="text-xs md:text-sm text-gray-600 space-y-1 md:space-y-2 text-left px-4">
                         <li>• Everything in Starter</li>
                         <li>• 2 Reels/TikTok</li>
                         <li>• Story Templates</li>
@@ -852,11 +1091,11 @@
                 </div>
                 
                 <div class="price-card text-center">
-                    <div class="text-4xl mb-4">📳</div>
-                    <h4 class="text-lg font-bold mb-2">Pro Pack</h4>
-                    <div class="text-3xl font-bold mb-2">₱25K - ₱30K</div>
-                    <p class="text-gray-600 text-sm mb-4">30 Social Media Posts</p>
-                    <ul class="text-sm text-gray-600 space-y-2">
+                    <div class="text-3xl md:text-4xl mb-3 md:mb-4">📳</div>
+                    <h4 class="text-base md:text-lg font-bold mb-1 md:mb-2">Pro Pack</h4>
+                    <div class="text-2xl md:text-3xl font-bold mb-1 md:mb-2">₱25K - ₱30K</div>
+                    <p class="text-gray-600 text-sm mb-3 md:mb-4">30 Social Media Posts</p>
+                    <ul class="text-xs md:text-sm text-gray-600 space-y-1 md:space-y-2 text-left px-4">
                         <li>• Everything in Growth</li>
                         <li>• 5 Reels/TikTok</li>
                         <li>• Content Strategy</li>
@@ -868,69 +1107,58 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="pb-24">
+    <section id="contact" class="pb-16 md:pb-24">
         <div class="glass-card max-w-4xl mx-auto reveal">
-            <div class="grid md:grid-cols-2 gap-12">
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12">
                 <div>
-                    <h2 class="text-5xl font-bold mb-4">Let's<br><span class="gradient-text">Talk</span></h2>
-                    <p class="text-gray-600 mb-8">Have a project in mind? I'd love to hear about it. Let's create something amazing together.</p>
+                    <h2 class="text-3xl md:text-5xl font-bold mb-3 md:mb-4">Let's<br><span class="gradient-text">Talk</span></h2>
+                    <p class="text-gray-600 text-sm md:text-base mb-6 md:mb-8">Have a project in mind? I'd love to hear about it. Send me a message and let's create something amazing together.</p>
                     
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+                    <div class="space-y-3 md:space-y-4">
+                        <div class="flex items-center gap-3 md:gap-4">
+                            <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 text-sm md:text-base">
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <div>
-                                <div class="text-sm text-gray-500">Email</div>
-                                <div class="font-semibold">hello@hanz.design</div>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-600">
-                                <i class="fab fa-instagram"></i>
-                            </div>
-                            <div>
-                                <div class="text-sm text-gray-500">Instagram</div>
-                                <div class="font-semibold">@hanz.designs</div>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                                <i class="fab fa-behance"></i>
-                            </div>
-                            <div>
-                                <div class="text-sm text-gray-500">Behance</div>
-                                <div class="font-semibold">/hanzdesign</div>
+                                <div class="text-xs md:text-sm text-gray-500">Email</div>
+                                <div class="font-semibold text-sm md:text-base">hanzlopezofficial@gmail.com</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <form class="space-y-4" onsubmit="event.preventDefault(); alert('Message sent! I will get back to you soon.');">
+                <!-- FORMSPREE FORM - This actually sends emails! -->
+                <form action="https://formspree.io/f/xnqkvnqy" method="POST" class="space-y-3 md:space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                        <input type="text" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:outline-none transition-colors" placeholder="Your name">
+                        <label class="form-label">Name</label>
+                        <input type="text" name="name" class="form-input" placeholder="Your name" required>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                        <input type="email" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:outline-none transition-colors" placeholder="your@email.com">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-input" placeholder="your@email.com" required>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Service</label>
-                        <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:outline-none transition-colors">
-                            <option>Select a service...</option>
-                            <option>Logo Design</option>
-                            <option>Brand Identity</option>
-                            <option>Print Design</option>
-                            <option>Digital/Social Media</option>
-                            <option>Monthly Package</option>
+                        <label class="form-label">Service Interested In</label>
+                        <select name="service" class="form-input" required>
+                            <option value="">Select a service...</option>
+                            <option value="Logo Design">Logo Design</option>
+                            <option value="Brand Identity">Brand Identity</option>
+                            <option value="Print Design">Print Design</option>
+                            <option value="Digital/Social Media">Digital/Social Media</option>
+                            <option value="Product Packaging">Product Packaging</option>
+                            <option value="Monthly Package">Monthly Package</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                        <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:outline-none transition-colors" placeholder="Tell me about your project..."></textarea>
+                        <label class="form-label">Message</label>
+                        <textarea name="message" rows="4" class="form-input" placeholder="Tell me about your project..." required></textarea>
                     </div>
-                    <button type="submit" class="w-full py-4 rounded-xl bg-black text-white font-bold hover:bg-gray-800 transition-colors">
+                    <!-- Hidden field for subject -->
+                    <input type="hidden" name="_subject" value="New Portfolio Inquiry from HANZ Website">
+                    <!-- Redirect after submission -->
+                    <input type="hidden" name="_next" value="https://hanz.design/thanks.html">
+                    
+                    <button type="submit" class="w-full py-3 md:py-4 rounded-xl bg-black text-white font-bold hover:bg-gray-800 transition-colors text-sm md:text-base">
                         Send Message <i class="fas fa-paper-plane ml-2"></i>
                     </button>
                 </form>
@@ -939,18 +1167,18 @@
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-200 py-8 px-6">
+    <footer class="border-t border-gray-200 py-6 md:py-8 px-4 md:px-6">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="text-2xl font-bold">HANZ.</div>
-            <div class="text-sm text-gray-500">© 2024 HANZ Design. All rights reserved.</div>
-            <div class="flex gap-4">
-                <a href="#" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 transition-all">
+            <div class="text-xl md:text-2xl font-bold">HANZ.</div>
+            <div class="text-xs md:text-sm text-gray-500 text-center">© 2024 HANZ Design. All rights reserved.</div>
+            <div class="flex gap-3 md:gap-4">
+                <a href="#" class="w-8 h-8 md:w-10 md:h-10 rounded-full border border-gray-200 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 transition-all text-sm md:text-base">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="#" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 transition-all">
+                <a href="#" class="w-8 h-8 md:w-10 md:h-10 rounded-full border border-gray-200 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 transition-all text-sm md:text-base">
                     <i class="fab fa-behance"></i>
                 </a>
-                <a href="#" class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 transition-all">
+                <a href="#" class="w-8 h-8 md:w-10 md:h-10 rounded-full border border-gray-200 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 transition-all text-sm md:text-base">
                     <i class="fab fa-dribbble"></i>
                 </a>
             </div>
@@ -958,27 +1186,50 @@
     </footer>
 
     <script>
-        // Custom Cursor
+        // Custom Cursor - Desktop Only
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
         
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
+        // Only enable on non-touch devices
+        if (window.matchMedia('(pointer: fine)').matches) {
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+                
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+                
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
+            });
             
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
+            // Hover effect
+            document.querySelectorAll('a, button, .portfolio-item, .glass-card, .price-card').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+            });
+        }
+        
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
         });
         
-        // Hover effect
-        document.querySelectorAll('a, button, .portfolio-item, .glass-card, .price-card').forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        closeMobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+        
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
         });
         
         // Scroll Reveal
@@ -986,7 +1237,7 @@
         
         const revealOnScroll = () => {
             const windowHeight = window.innerHeight;
-            const elementVisible = 150;
+            const elementVisible = 100;
             
             revealElements.forEach((reveal) => {
                 const elementTop = reveal.getBoundingClientRect().top;
@@ -999,7 +1250,7 @@
         window.addEventListener('scroll', revealOnScroll);
         revealOnScroll();
         
-        // Smooth Scroll
+        // Smooth Scroll for Navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1010,13 +1261,23 @@
             });
         });
         
-        // Parallax for hero image
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const heroImage = document.querySelector('.hero-image');
-            if (heroImage && scrolled < window.innerHeight) {
-                heroImage.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
+        // Parallax for hero image (disable on mobile for performance)
+        if (window.matchMedia('(pointer: fine)').matches) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const heroImage = document.querySelector('.hero-image');
+                if (heroImage && scrolled < window.innerHeight) {
+                    heroImage.style.transform = `translateY(${scrolled * 0.3}px)`;
+                }
+            });
+        }
+        
+        // Form submission handling
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(e) {
+            const btn = form.querySelector('button[type="submit"]');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
         });
     </script>
 </body>
