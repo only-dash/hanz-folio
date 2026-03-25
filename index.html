@@ -175,24 +175,26 @@
             50% { transform: translateY(-15px); }
         }
         
-        /* Bottom text - CENTERED UNDER PORTFOLIO TEXT */
+        /* Bottom text - NASA GILID NA */
         .bottom-text-container {
             display: flex;
-            justify-content: center;
+            justify-content: space-between; /* Ito yung nagtulak sa kanila sa magkabilang dulo */
             align-items: center;
-            gap: 3rem;
+            width: 100%; /* Para sakop buong width */
+            padding: 0 2rem; /* Spacing sa magkabilang gilid para sa mobile */
             margin-top: 1rem;
             z-index: 4;
-            flex-wrap: wrap;
+            /* Tinanggal na natin yung gap at flex-wrap kasi hindi na sila magkatabi */
         }
         
         @media (min-width: 768px) {
             .bottom-text-container {
-                gap: 6rem;
-                margin-top: 2rem;
+                padding: 0 5rem; /* Mas malaking space sa gilid kapag sa PC/Tablet */
+                margin-top: -3rem; /* Inangat natin konti para pumantay sa artwork mo */
             }
         }
         
+        /* THE REST AY SAME LANG - WALA KANG BABAGUHIN DITO SA BABA */
         .side-text {
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 600;
@@ -238,6 +240,7 @@
                 font-size: 2rem;
             }
         }
+
         
         /* Navigation */
         nav {
